@@ -17,7 +17,17 @@ FSJS project 2 - List Filter and Pagination
    scoped to that function.
 ***/
 
+let totalItems = document.querySelector('ul');
+const item = totalItems.children;
 
+let currentPage = 1;
+const pageSize = 10;
+let totalPages = Math.ceil(item.length / pageSize);
+const paginationDiv = document.querySelector('.pagination');
+const paginationUL = paginationDiv.querySelector('ul');
+
+console.log(item.length);
+console.log(totalPages);
 
 
 /*** 
@@ -35,15 +45,42 @@ FSJS project 2 - List Filter and Pagination
        "invoke" the function 
 ***/
 
+function showPage() {
+    for(let i = 0; i < item.length; i++) {
+        if( i < pageSize) {
+            item[i].style.display = ' ';
+        } else {
+            item[i].style.display = 'none';
+        }
+    }
+}
 
-
+showPage();
 
 /*** 
    Create the `appendPageLinks function` to generate, append, and add 
    functionality to the pagination buttons.
 ***/
 
+function appendPageLinks () {
+    for(let i = 1; i <= totalPages; i++) {
+        let li = document.createElement('li');
+        let a = document.createElement('a');
+        a.className = 'active';
+        a.href = '#';
+        a.textContent = i;
+        paginationUL.appendChild(li);
+        li.appendChild(a);
+    }
+}
 
+appendPageLinks();
+
+
+paginationDiv.addEventListener('click', (e) => {
+    console.log("running")
+
+});
 
 
 
