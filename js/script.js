@@ -26,6 +26,9 @@ let totalPages = Math.ceil(item.length / pageSize);
 const paginationDiv = document.querySelector('.pagination');
 const paginationUL = paginationDiv.querySelector('ul');
 
+const noResultDiv = document.querySelector('.no-result');
+
+
 console.log(item.length);
 console.log(totalPages);
 
@@ -78,7 +81,19 @@ appendPageLinks();
 
 
 paginationDiv.addEventListener('click', (e) => {
-    console.log("running")
+    noResultDiv.innerHTML = '';
+    console.log("test",parseInt(e.target.textContent))
+    let buttonNumber = parseInt(e.target.textContent);
+    let max = buttonNumber * 10;
+    let min = max - 10;
+
+    for(let i = 0; i < item.length; i++) {
+        if (i >= min && i < max) {
+            item[i].style.display = '';
+        }  else {
+            item[i].style.display = 'none';
+        }
+    }
 
 });
 
