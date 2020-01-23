@@ -1,5 +1,5 @@
 body{
-  background-color: #e1f1f6;
+  background-color: #404040;
   font-family: Helvetica, sans-serif;
   color: #222;
 }
@@ -67,7 +67,7 @@ body{
       .student-details h3{
         margin: 4px 0 2px 0;
         font-weight: bold;
-        color: #4ba6c3;
+        color: deeppink;
       }
 
       .student-details .email{
@@ -100,20 +100,61 @@ body{
   text-align: center;
 }
  
-  .pagination li{
-    display: inline;
-  }
+.pagination li{
+  display: inline;
+}
 
-    .pagination li a{
-      border: 1px solid #eaeaea;
-      border-radius: 5px;
-      padding: 3px 8px;
-      text-decoration: none;
-      color: #4ba6c3;
-    }
+.pagination li a{
+  border: 1px solid #eaeaea;
+  border-radius: 5px;
+  padding: 3px 8px;
+  text-decoration: none;
+  color: #4ba6c3;
+}
 
-    .pagination li a.active,
-    .pagination li a:hover{
-      background-color: #4ba6c3;
-      color: #fff;
-    }
+.pagination li a.active,
+.pagination li a:hover{
+  background-color: orange;
+  color: deeppink;
+}
+
+.no-result-container {
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.searchContainer {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.searchButton {
+  margin-left: 20px;
+  padding: 4px 30px;
+  border-radius: 20px;
+  background-color: orange;
+  color: deeppink;
+  font-weight: 600;
+  letter-spacing: 6px;
+}
+
+.searchButton:focus {
+  outline: none;
+  /*border: none;*/
+}
+
+input {
+  border: 1px solid deeppink;
+  padding: 4px 20px;
+  border-radius: 20px;
+
+}
+
+input:focus {
+  outline: none;
+
+}

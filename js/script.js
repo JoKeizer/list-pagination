@@ -6,15 +6,8 @@ FSJS project 2 - List Filter and Pagination
 // Study guide for this project - https://drive.google.com/file/d/1OD1diUsTMdpfMDv677TfL1xO2CEkykSz/view?usp=sharing
 
 
-/*** 
-   Add your global variables that store the DOM elements you will 
-   need to reference and/or manipulate. 
-   
-   But be mindful of which variables should be global and which 
-   should be locally scoped to one of the two main functions you're 
-   going to create. A good general rule of thumb is if the variable 
-   will only be used inside of a function, then it can be locally 
-   scoped to that function.
+/***
+    global variables that store the DOM elements
 ***/
 
 let totalItems = document.querySelector('ul');
@@ -25,27 +18,17 @@ const pageSize = 10;
 let totalPages = Math.ceil(item.length / pageSize);
 const paginationDiv = document.querySelector('.pagination');
 const paginationUL = paginationDiv.querySelector('ul');
-
+const searchDiv = document.querySelector('.item-search');
 const noResultDiv = document.querySelector('.no-result');
+const noResultContainer = document.querySelector('.no-result-container')
+let searchInput = document.createElement('input');
+let searchButton = document.createElement('button');
 
-
-console.log(item.length);
-console.log(totalPages);
+noResultContainer.classList.remove("no-result-container");
 
 
 /*** 
-   Create the `showPage` function to hide all of the items in the 
-   list except for the ten you want to show.
-
-   Pro Tips: 
-     - Keep in mind that with a list of 54 students, the last page 
-       will only display four.
-     - Remember that the first student has an index of 0.
-     - Remember that a function `parameter` goes in the parens when 
-       you initially define the function, and it acts as a variable 
-       or a placeholder to represent the actual function `argument` 
-       that will be passed into the parens later when you call or 
-       "invoke" the function 
+    ShowPage show only the first 10 items and hide the rest of all items
 ***/
 
 function showPage() {
@@ -60,9 +43,8 @@ function showPage() {
 
 showPage();
 
-/*** 
-   Create the `appendPageLinks function` to generate, append, and add 
-   functionality to the pagination buttons.
+/***
+    appendPageLinks create dynamically pagination based on total items
 ***/
 
 function appendPageLinks () {
@@ -79,10 +61,13 @@ function appendPageLinks () {
 
 appendPageLinks();
 
+/***
+   AddEventListener on pagination buttons. Every button loads max 10 items
+ ***/
+
 
 paginationDiv.addEventListener('click', (e) => {
     noResultDiv.innerHTML = '';
-    console.log("test",parseInt(e.target.textContent))
     let buttonNumber = parseInt(e.target.textContent);
     let max = buttonNumber * 10;
     let min = max - 10;
@@ -97,6 +82,47 @@ paginationDiv.addEventListener('click', (e) => {
 
 });
 
+/***
+    Search function to search in all items on all pages
+ ***/
 
 
-// Remember to delete the comments that came with this file, and replace them with your own code comments.
+function showSearch() {
+    searchInput.placeholder = 'Search...';
+    searchButton.className = "searchButton";
+    searchButton.textContent = 'Search';
+    searchDiv.appendChild(searchInput);
+    searchDiv.appendChild(searchButton);
+}
+
+showSearch();
+
+
+/***
+    EventListener on search inputField
+ ***/
+
+const searchResults = [];
+searchButton.addEventListener('click', () => {
+    let filter = searchInput.value.toLowerCase();
+    searchResults.length = 0;
+    for (let i = 0; i < item.length; i++) {
+        if (item[i].innerHTML.indexOf(filter) > -1) {
+            item[i].style.display = '';
+
+        } else {
+            item[i].style.display = 'none';
+            searchResults.push(i);
+        }
+    }
+    // If all items are hidden, a 'no results' message is displayed
+    if (searchResults.length === item.length) {
+        noResultContainer.className = 'no-result-container';
+        noResultDiv.innerHTML = '<h1>No Results</h1>';
+
+    } else {
+        noResultDiv.innerHTML = '';
+        noResultContainer.classList.remove("no-result-container");
+
+    }
+});
