@@ -18,13 +18,14 @@ const pageSize = 10;
 let totalPages = Math.ceil(item.length / pageSize);
 const paginationDiv = document.querySelector('.pagination');
 const paginationUL = paginationDiv.querySelector('ul');
-const searchDiv = document.querySelector('.item-search');
-const noResultDiv = document.querySelector('.no-result');
-const noResultContainer = document.querySelector('.no-result-container')
-let searchInput = document.createElement('input');
-let searchButton = document.createElement('button');
 
-noResultContainer.classList.remove("no-result-container");
+let searchButton = document.createElement('button');
+let pageHeaderDiv = document.querySelector('.page-header');
+
+let noResultDiv = document.createElement('div')
+let noResult = document.createElement('div');
+
+noResultDiv.classList.remove("no-result-container");
 
 
 /*** 
@@ -42,6 +43,33 @@ function showPage() {
 }
 
 showPage();
+
+/***
+ Search function to search in all items on all pages
+ ***/
+
+
+let searchInput = document.createElement('input');
+
+function createSearch() {
+    let searchDiv = document.createElement('div');
+    searchDiv.className = 'searchContainer';
+    let itemSearchDiv = document.createElement('div');
+    itemSearchDiv.className = 'item-search';
+
+    pageHeaderDiv.appendChild(searchDiv);
+    searchDiv.appendChild(itemSearchDiv);
+
+
+    searchInput.placeholder = 'Search...';
+    searchButton.className = "searchButton";
+    searchButton.textContent = 'Search';
+    searchDiv.appendChild(searchInput);
+    searchDiv.appendChild(searchButton);
+
+}
+
+createSearch();
 
 /***
     appendPageLinks create dynamically pagination based on total items
@@ -67,7 +95,7 @@ appendPageLinks();
 
 
 paginationDiv.addEventListener('click', (e) => {
-    noResultDiv.innerHTML = '';
+    noResult.innerHTML = '';
     let buttonNumber = parseInt(e.target.textContent);
     let max = buttonNumber * 10;
     let min = max - 10;
@@ -82,20 +110,6 @@ paginationDiv.addEventListener('click', (e) => {
 
 });
 
-/***
-    Search function to search in all items on all pages
- ***/
-
-
-function showSearch() {
-    searchInput.placeholder = 'Search...';
-    searchButton.className = "searchButton";
-    searchButton.textContent = 'Search';
-    searchDiv.appendChild(searchInput);
-    searchDiv.appendChild(searchButton);
-}
-
-showSearch();
 
 
 /***
@@ -104,6 +118,15 @@ showSearch();
 
 const searchResults = [];
 searchButton.addEventListener('click', () => {
+    noResultDiv.className = 'no-result-container';
+    noResult.className = 'no-result';
+
+    pageHeaderDiv.appendChild(noResultDiv);
+    noResultDiv.appendChild(noResult);
+
+    console.log(noResult, 'noResult')
+    console.log(noResultDiv, 'noResultDiv')
+
     let filter = searchInput.value.toLowerCase();
     searchResults.length = 0;
     for (let i = 0; i < item.length; i++) {
@@ -117,12 +140,13 @@ searchButton.addEventListener('click', () => {
     }
     // If all items are hidden, a 'no results' message is displayed
     if (searchResults.length === item.length) {
-        noResultContainer.className = 'no-result-container';
-        noResultDiv.innerHTML = '<h1>No Results</h1>';
+        noResultDiv.className = 'no-result-container';
+        noResult.innerHTML = '<h1>No Results</h1>';
+        console.log(noResult);
 
     } else {
-        noResultDiv.innerHTML = '';
-        noResultContainer.classList.remove("no-result-container");
+        noResult.innerHTML = '';
+        noResultDiv.classList.remove("no-result-container");
 
     }
 });

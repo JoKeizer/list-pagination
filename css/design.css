@@ -128,7 +128,7 @@ body{
 .searchContainer {
   display: flex;
   justify-content: flex-end;
-  flex-direction: column;
+  flex-direction: row;
   align-items: flex-end;
 }
 
