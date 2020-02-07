@@ -16,8 +16,12 @@ const item = totalItems.children;
 let currentPage = 1;
 const pageSize = 10;
 let totalPages = Math.ceil(item.length / pageSize);
-const paginationDiv = document.querySelector('.pagination');
-const paginationUL = paginationDiv.querySelector('ul');
+const paginationDiv = document.createElement('div');
+paginationDiv.className = 'pagination';
+const pageDiv = document.querySelector('.page');
+pageDiv.appendChild(paginationDiv);
+const ul = document.createElement('ul');
+
 
 let searchButton = document.createElement('button');
 let pageHeaderDiv = document.querySelector('.page-header');
@@ -82,9 +86,11 @@ function appendPageLinks () {
         a.className = 'active';
         a.href = '#';
         a.textContent = i;
-        paginationUL.appendChild(li);
+        ul.appendChild(li);
         li.appendChild(a);
     }
+    paginationDiv.appendChild(ul);
+
 }
 
 appendPageLinks();
